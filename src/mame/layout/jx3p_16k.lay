@@ -1,0 +1,479 @@
+<?xml version="1.0"?>
+<mamelayout version="2">
+
+  <!-- Temporary diagnostic panel for the provisional SWSCN mapping. -->
+  <element name="panel_bg">
+    <rect><color red="0.035" green="0.040" blue="0.045" /></rect>
+  </element>
+
+  <element name="button">
+    <rect state="0"><color red="0.32" green="0.34" blue="0.36" /></rect>
+    <rect state="1"><color red="0.62" green="0.66" blue="0.70" /></rect>
+  </element>
+
+  <element name="led">
+    <disk state="0"><color red="0.18" green="0.015" blue="0.010" /></disk>
+    <disk state="1"><color red="1.00" green="0.10" blue="0.025" /></disk>
+  </element>
+
+  <element name="title_text">
+    <text string="JX-3P TEMPORARY PANEL - PROVISIONAL PORT MAP">
+      <color red="0.92" green="0.92" blue="0.92" />
+    </text>
+  </element>
+  <element name="label_0">
+    <text string="Step 1"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_1">
+    <text string="Step 2"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_2">
+    <text string="Step 3"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_3">
+    <text string="Step 4"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_4">
+    <text string="Step 5"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_5">
+    <text string="Step 6"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_6">
+    <text string="Step 7"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_7">
+    <text string="Step 8"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_8">
+    <text string="Step 9"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_9">
+    <text string="Step 10"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_10">
+    <text string="Step 11"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_11">
+    <text string="Step 12"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_12">
+    <text string="Step 13"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_13">
+    <text string="Step 14"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_14">
+    <text string="Step 15"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_15">
+    <text string="Step 16"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_16">
+    <text string="Chorus"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_17">
+    <text string="Mute"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_18">
+    <text string="Hold"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_19">
+    <text string="Transpose"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_20">
+    <text string="Bank A"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_21">
+    <text string="Bank B"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_22">
+    <text string="Bank C"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_23">
+    <text string="Bank D"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_24">
+    <text string="Group A"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_25">
+    <text string="Group B"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_26">
+    <text string="Edit Write"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_27">
+    <text string="Sequencer Write"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_28">
+    <text string="Note Tie"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_29">
+    <text string="Note Rest"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_30">
+    <text string="Start/Stop"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+  <element name="label_31">
+    <text string="Tape Memory"><color red="0.93" green="0.93" blue="0.93" /></text>
+  </element>
+
+  <view name="JX-3P Temporary Controls">
+    <bounds x="0" y="0" width="1600" height="620" />
+    <element ref="panel_bg"><bounds x="0" y="0" width="1600" height="620" /></element>
+    <element ref="title_text"><bounds x="280" y="18" width="1040" height="34" /></element>
+
+    <!-- Chorus: SWSCN2 mask 0x01; LED output chorus -->
+    <element ref="button" inputtag="SWSCN2" inputmask="0x01">
+      <bounds x="35" y="85" width="160" height="82" />
+    </element>
+    <element ref="led" name="chorus">
+      <bounds x="100" y="93" width="30" height="30" />
+    </element>
+    <element ref="label_16">
+      <bounds x="43" y="133" width="144" height="22" />
+    </element>
+
+    <!-- Mute: SWSCN2 mask 0x02; LED output mute -->
+    <element ref="button" inputtag="SWSCN2" inputmask="0x02">
+      <bounds x="229" y="85" width="160" height="82" />
+    </element>
+    <element ref="led" name="mute">
+      <bounds x="294" y="93" width="30" height="30" />
+    </element>
+    <element ref="label_17">
+      <bounds x="237" y="133" width="144" height="22" />
+    </element>
+
+    <!-- Hold: SWSCN2 mask 0x04; LED output hold -->
+    <element ref="button" inputtag="SWSCN2" inputmask="0x04">
+      <bounds x="423" y="85" width="160" height="82" />
+    </element>
+    <element ref="led" name="hold">
+      <bounds x="488" y="93" width="30" height="30" />
+    </element>
+    <element ref="label_18">
+      <bounds x="431" y="133" width="144" height="22" />
+    </element>
+
+    <!-- Transpose: SWSCN2 mask 0x08; LED output transpose -->
+    <element ref="button" inputtag="SWSCN2" inputmask="0x08">
+      <bounds x="617" y="85" width="160" height="82" />
+    </element>
+    <element ref="led" name="transpose">
+      <bounds x="682" y="93" width="30" height="30" />
+    </element>
+    <element ref="label_19">
+      <bounds x="625" y="133" width="144" height="22" />
+    </element>
+
+    <!-- Bank A: SWSCN2 mask 0x10; LED output bank_a -->
+    <element ref="button" inputtag="SWSCN2" inputmask="0x10">
+      <bounds x="811" y="85" width="160" height="82" />
+    </element>
+    <element ref="led" name="bank_a">
+      <bounds x="876" y="93" width="30" height="30" />
+    </element>
+    <element ref="label_20">
+      <bounds x="819" y="133" width="144" height="22" />
+    </element>
+
+    <!-- Bank B: SWSCN2 mask 0x20; LED output bank_b -->
+    <element ref="button" inputtag="SWSCN2" inputmask="0x20">
+      <bounds x="1005" y="85" width="160" height="82" />
+    </element>
+    <element ref="led" name="bank_b">
+      <bounds x="1070" y="93" width="30" height="30" />
+    </element>
+    <element ref="label_21">
+      <bounds x="1013" y="133" width="144" height="22" />
+    </element>
+
+    <!-- Bank C: SWSCN2 mask 0x40; LED output bank_c -->
+    <element ref="button" inputtag="SWSCN2" inputmask="0x40">
+      <bounds x="1199" y="85" width="160" height="82" />
+    </element>
+    <element ref="led" name="bank_c">
+      <bounds x="1264" y="93" width="30" height="30" />
+    </element>
+    <element ref="label_22">
+      <bounds x="1207" y="133" width="144" height="22" />
+    </element>
+
+    <!-- Bank D: SWSCN2 mask 0x80; LED output bank_d -->
+    <element ref="button" inputtag="SWSCN2" inputmask="0x80">
+      <bounds x="1393" y="85" width="160" height="82" />
+    </element>
+    <element ref="led" name="bank_d">
+      <bounds x="1458" y="93" width="30" height="30" />
+    </element>
+    <element ref="label_23">
+      <bounds x="1401" y="133" width="144" height="22" />
+    </element>
+
+    <!-- Group A: SWSCN3 mask 0x01; LED output group_a -->
+    <element ref="button" inputtag="SWSCN3" inputmask="0x01">
+      <bounds x="35" y="230" width="160" height="82" />
+    </element>
+    <element ref="led" name="group_a">
+      <bounds x="100" y="238" width="30" height="30" />
+    </element>
+    <element ref="label_24">
+      <bounds x="43" y="278" width="144" height="22" />
+    </element>
+
+    <!-- Group B: SWSCN3 mask 0x02; LED output group_b -->
+    <element ref="button" inputtag="SWSCN3" inputmask="0x02">
+      <bounds x="229" y="230" width="160" height="82" />
+    </element>
+    <element ref="led" name="group_b">
+      <bounds x="294" y="238" width="30" height="30" />
+    </element>
+    <element ref="label_25">
+      <bounds x="237" y="278" width="144" height="22" />
+    </element>
+
+    <!-- Edit Write: SWSCN3 mask 0x04; LED output edit_write -->
+    <element ref="button" inputtag="SWSCN3" inputmask="0x04">
+      <bounds x="423" y="230" width="160" height="82" />
+    </element>
+    <element ref="led" name="edit_write">
+      <bounds x="488" y="238" width="30" height="30" />
+    </element>
+    <element ref="label_26">
+      <bounds x="431" y="278" width="144" height="22" />
+    </element>
+
+    <!-- Sequencer Write: SWSCN3 mask 0x08; LED output sequencer_write -->
+    <element ref="button" inputtag="SWSCN3" inputmask="0x08">
+      <bounds x="617" y="230" width="160" height="82" />
+    </element>
+    <element ref="led" name="sequencer_write">
+      <bounds x="682" y="238" width="30" height="30" />
+    </element>
+    <element ref="label_27">
+      <bounds x="625" y="278" width="144" height="22" />
+    </element>
+
+    <!-- Note Tie: SWSCN3 mask 0x10; LED output note_tie -->
+    <element ref="button" inputtag="SWSCN3" inputmask="0x10">
+      <bounds x="811" y="230" width="160" height="82" />
+    </element>
+    <element ref="led" name="note_tie">
+      <bounds x="876" y="238" width="30" height="30" />
+    </element>
+    <element ref="label_28">
+      <bounds x="819" y="278" width="144" height="22" />
+    </element>
+
+    <!-- Note Rest: SWSCN3 mask 0x20; LED output note_rest -->
+    <element ref="button" inputtag="SWSCN3" inputmask="0x20">
+      <bounds x="1005" y="230" width="160" height="82" />
+    </element>
+    <element ref="led" name="note_rest">
+      <bounds x="1070" y="238" width="30" height="30" />
+    </element>
+    <element ref="label_29">
+      <bounds x="1013" y="278" width="144" height="22" />
+    </element>
+
+    <!-- Start/Stop: SWSCN3 mask 0x40; LED output start_stop -->
+    <element ref="button" inputtag="SWSCN3" inputmask="0x40">
+      <bounds x="1199" y="230" width="160" height="82" />
+    </element>
+    <element ref="led" name="start_stop">
+      <bounds x="1264" y="238" width="30" height="30" />
+    </element>
+    <element ref="label_30">
+      <bounds x="1207" y="278" width="144" height="22" />
+    </element>
+
+    <!-- Tape Memory: SWSCN3 mask 0x80; LED output tape_memory -->
+    <element ref="button" inputtag="SWSCN3" inputmask="0x80">
+      <bounds x="1393" y="230" width="160" height="82" />
+    </element>
+    <element ref="led" name="tape_memory">
+      <bounds x="1458" y="238" width="30" height="30" />
+    </element>
+    <element ref="label_31">
+      <bounds x="1401" y="278" width="144" height="22" />
+    </element>
+
+    <!-- Step 1: SWSCN0 mask 0x01; LED output step_1 -->
+    <element ref="button" inputtag="SWSCN0" inputmask="0x01">
+      <bounds x="22" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_1">
+      <bounds x="47" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_0">
+      <bounds x="26" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 2: SWSCN0 mask 0x02; LED output step_2 -->
+    <element ref="button" inputtag="SWSCN0" inputmask="0x02">
+      <bounds x="120" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_2">
+      <bounds x="145" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_1">
+      <bounds x="124" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 3: SWSCN0 mask 0x04; LED output step_3 -->
+    <element ref="button" inputtag="SWSCN0" inputmask="0x04">
+      <bounds x="218" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_3">
+      <bounds x="243" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_2">
+      <bounds x="222" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 4: SWSCN0 mask 0x08; LED output step_4 -->
+    <element ref="button" inputtag="SWSCN0" inputmask="0x08">
+      <bounds x="316" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_4">
+      <bounds x="341" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_3">
+      <bounds x="320" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 5: SWSCN0 mask 0x10; LED output step_5 -->
+    <element ref="button" inputtag="SWSCN0" inputmask="0x10">
+      <bounds x="414" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_5">
+      <bounds x="439" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_4">
+      <bounds x="418" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 6: SWSCN0 mask 0x20; LED output step_6 -->
+    <element ref="button" inputtag="SWSCN0" inputmask="0x20">
+      <bounds x="512" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_6">
+      <bounds x="537" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_5">
+      <bounds x="516" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 7: SWSCN0 mask 0x40; LED output step_7 -->
+    <element ref="button" inputtag="SWSCN0" inputmask="0x40">
+      <bounds x="610" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_7">
+      <bounds x="635" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_6">
+      <bounds x="614" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 8: SWSCN0 mask 0x80; LED output step_8 -->
+    <element ref="button" inputtag="SWSCN0" inputmask="0x80">
+      <bounds x="708" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_8">
+      <bounds x="733" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_7">
+      <bounds x="712" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 9: SWSCN1 mask 0x01; LED output step_9 -->
+    <element ref="button" inputtag="SWSCN1" inputmask="0x01">
+      <bounds x="806" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_9">
+      <bounds x="831" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_8">
+      <bounds x="810" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 10: SWSCN1 mask 0x02; LED output step_10 -->
+    <element ref="button" inputtag="SWSCN1" inputmask="0x02">
+      <bounds x="904" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_10">
+      <bounds x="929" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_9">
+      <bounds x="908" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 11: SWSCN1 mask 0x04; LED output step_11 -->
+    <element ref="button" inputtag="SWSCN1" inputmask="0x04">
+      <bounds x="1002" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_11">
+      <bounds x="1027" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_10">
+      <bounds x="1006" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 12: SWSCN1 mask 0x08; LED output step_12 -->
+    <element ref="button" inputtag="SWSCN1" inputmask="0x08">
+      <bounds x="1100" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_12">
+      <bounds x="1125" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_11">
+      <bounds x="1104" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 13: SWSCN1 mask 0x10; LED output step_13 -->
+    <element ref="button" inputtag="SWSCN1" inputmask="0x10">
+      <bounds x="1198" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_13">
+      <bounds x="1223" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_12">
+      <bounds x="1202" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 14: SWSCN1 mask 0x20; LED output step_14 -->
+    <element ref="button" inputtag="SWSCN1" inputmask="0x20">
+      <bounds x="1296" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_14">
+      <bounds x="1321" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_13">
+      <bounds x="1300" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 15: SWSCN1 mask 0x40; LED output step_15 -->
+    <element ref="button" inputtag="SWSCN1" inputmask="0x40">
+      <bounds x="1394" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_15">
+      <bounds x="1419" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_14">
+      <bounds x="1398" y="497" width="70" height="22" />
+    </element>
+
+    <!-- Step 16: SWSCN1 mask 0x80; LED output step_16 -->
+    <element ref="button" inputtag="SWSCN1" inputmask="0x80">
+      <bounds x="1492" y="425" width="78" height="118" />
+    </element>
+    <element ref="led" name="step_16">
+      <bounds x="1517" y="437" width="28" height="28" />
+    </element>
+    <element ref="label_15">
+      <bounds x="1496" y="497" width="70" height="22" />
+    </element>
+
+  </view>
+</mamelayout>

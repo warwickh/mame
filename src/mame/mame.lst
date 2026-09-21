@@ -40319,6 +40319,9 @@ gr700
 jx3p
 mks30
 
+@source:roland/roland_jx3p_16k.cpp
+jx3p_16k
+
 @source:roland/roland_jx8p.cpp
 jx10
 jx8p
