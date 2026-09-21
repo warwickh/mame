@@ -1111,6 +1111,29 @@ if MACHINES["CHESSMACHINE"] then
 	}
 end
 
+---------------------------------------------------
+--
+--@src/devices/machine/clps6700.h,MACHINES["CLPS6700"] = true
+---------------------------------------------------
+
+if MACHINES["CLPS6700"] then
+	files {
+		MAME_DIR .. "src/devices/machine/clps6700.cpp",
+		MAME_DIR .. "src/devices/machine/clps6700.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/clps7110.h,MACHINES["CLPS7110"] = true
+---------------------------------------------------
+
+if MACHINES["CLPS7110"] then
+	files {
+		MAME_DIR .. "src/devices/machine/clps7110.cpp",
+		MAME_DIR .. "src/devices/machine/clps7110.h",
+	}
+end
 
 ---------------------------------------------------
 --
@@ -2899,6 +2922,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/mk3835.h,MACHINES["MK3835"] = true
+---------------------------------------------------
+
+if MACHINES["MK3835"] then
+	files {
+		MAME_DIR .. "src/devices/machine/mk3835.cpp",
+		MAME_DIR .. "src/devices/machine/mk3835.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/pcf8584.h,MACHINES["PCF8584"] = true
 ---------------------------------------------------
 
@@ -4190,6 +4225,18 @@ if MACHINES["WD1010"] then
 	files {
 		MAME_DIR .. "src/devices/machine/wd1010.cpp",
 		MAME_DIR .. "src/devices/machine/wd1010.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/wd1015.h,MACHINES["WD1015"] = true
+---------------------------------------------------
+
+if MACHINES["WD1015"] then
+	files {
+		MAME_DIR .. "src/devices/machine/wd1015.cpp",
+		MAME_DIR .. "src/devices/machine/wd1015.h",
 	}
 end
 
@@ -5559,6 +5606,17 @@ if MACHINES["ALPSDPG23"] then
 	files {
 		MAME_DIR .. "src/devices/machine/alpsdpg23.cpp",
 		MAME_DIR .. "src/devices/machine/alpsdpg23.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/citizen120d.h,MACHINES["CITIZEN120D"] = true
+---------------------------------------------------
+if MACHINES["CITIZEN120D"] then
+	files {
+		MAME_DIR .. "src/devices/machine/citizen120d.cpp",
+		MAME_DIR .. "src/devices/machine/citizen120d.h",
 	}
 end
 
