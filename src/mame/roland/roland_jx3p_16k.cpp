@@ -36,6 +36,7 @@ roland_jx3p_state(const machine_config &mconfig, device_type type, const char *t
 	, m_dac(*this, "dac_%u", 0U)
 	, m_vco_cv(*this, "vco_cv")
 	, m_dacbit(*this, "dacbit_%u", 0U)
+	, m_vco_bar(*this, "vco_bar_%u", 0U)
 {
 }
 
@@ -43,6 +44,7 @@ roland_jx3p_state(const machine_config &mconfig, device_type type, const char *t
 
 private:
 	u8 m_midi_rxd = 1;
+    u8 m_edit_slider = 127;
 
 	void midi_rx_w(int state);
 
@@ -58,10 +60,15 @@ private:
 	void jx3p_ext_map(address_map &map) ATTR_COLD;
 	void if_prog_map(address_map &map) ATTR_COLD;
 	void if_ext_map(address_map &map) ATTR_COLD;
-
+    void update_edit_slider();
+	void check_group_b();
 	u8 port3_r();
 	void port2_w(u8 data);
 	void port3_w(u8 data);
+    u8 m_mux_channel = 0;
+	u8 m_port3_in = 0xff;
+    u8 m_last_mux = 0;
+	u8 m_current_dac_value = 0;
 
 	required_device<mcs51_cpu_device> m_maincpu;
 	optional_device<mcs51_cpu_device> m_ifcpu;
@@ -76,6 +83,7 @@ private:
     output_finder<16> m_dac;
     output_finder<> m_vco_cv;
 	output_finder<128> m_dacbit;
+	output_finder<16> m_vco_bar;
 
 	protected:
 	virtual void machine_start() override;
@@ -94,17 +102,28 @@ void roland_jx3p_state::prescale_w(u8 data)
 {
 }
 
-void roland_jx3p_state::dac_w(offs_t offset, u8 data)
-{
-	unsigned channel = (offset >> 4) & 0x0f;
-    unsigned const base = channel * 8;
-
-	for (unsigned bit = 0; bit < 8; bit++) m_dacbit[base + bit] = BIT(data, bit);
-
-	m_dac[channel] = data;
-
-	logerror("DAC[%u]=%02X\n", channel, data);
-	logerror( "DAC channel=%X offset=%02X data=%02X\n", channel, unsigned(offset), data);
+void roland_jx3p_state::dac_w(offs_t offset, u8 data) 
+{ 
+	unsigned const channel = (offset >> 4) & 0x0f; 
+	unsigned const base = channel * 8; 
+	for (unsigned bit = 0; bit < 8; bit++) 
+	{
+		m_dacbit[base + bit] = BIT(data, bit);
+	}
+	m_dac[channel] = data; 
+	if (channel == 2) 
+	{
+		m_current_dac_value = data; 
+		if (m_last_mux == 0x61) 
+		{
+			m_vco_cv = m_current_dac_value;
+			for (int i = 0; i < 16; i++)
+			{
+				m_vco_bar[i] =(m_current_dac_value >= ((i + 1) * 16));
+			}
+			logerror("SENS slider=%02X dac=%02X comparator=%u\n", m_edit_slider,m_current_dac_value,m_edit_slider >= m_current_dac_value);
+		}
+	}
 }
 
 
@@ -117,16 +136,39 @@ void roland_jx3p_state::sw_interface_w(u8 data)
 {
 }
 
-void roland_jx3p_state::analog_select_w(u8 data)
-{
-    logerror("P1=%02X select=%X bit6=%u\n", data, data & 0x0f, BIT(data, 6));
+u8 roland_jx3p_state::port3_r() 
+{ 
+	u8 value = 0xff; 
+	if (!m_midi_rxd) value &= ~0x01; 
+	if (m_last_mux == 0x61) 
+	{ 
+		bool const comparator = m_edit_slider >= m_current_dac_value; 
+		if (!comparator) value &= ~0x10; 
+	} 
+	return value; 
 }
 
-[[maybe_unused]] u8 roland_jx3p_state::port3_r()
+void roland_jx3p_state::analog_select_w(u8 data)
 {
-    logerror("P3 read\n");
-    return 0xff;
+	update_edit_slider();
+    check_group_b();
+	m_last_mux = data & 0x7f;
+	m_mux_channel =
+		(BIT(data, 2) << 2) |
+		(BIT(data, 1) << 1) |
+		 BIT(data, 0);
+
+	logerror("MUX P6..P0=%u%u%u%u%u%u%u slider=%u\n",
+    BIT(data, 6),
+    BIT(data, 5),
+    BIT(data, 4),
+    BIT(data, 3),
+    BIT(data, 2),
+    BIT(data, 1),
+    BIT(data, 0),
+    m_edit_slider);
 }
+
 
 void roland_jx3p_state::port2_w(u8 data)
 {
@@ -135,7 +177,17 @@ void roland_jx3p_state::port2_w(u8 data)
 
 void roland_jx3p_state::port3_w(u8 data)
 {
-	logerror("P3=%02X\n", data);
+	logerror(
+		"P3=%02X  RXD=%u TXD=%u INT0=%u INT1=%u T0=%u T1=%u WR=%u RD=%u\n",
+		data,
+		BIT(data,0),
+		BIT(data,1),
+		BIT(data,2),
+		BIT(data,3),
+		BIT(data,4),
+		BIT(data,5),
+		BIT(data,6),
+		BIT(data,7));
 }
 
 void roland_jx3p_state::prog_map(address_map &map)
@@ -263,7 +315,58 @@ static INPUT_PORTS_START(jx3p_16k)
     PORT_START("KYSCN7")
     PORT_BIT(0xff, IP_ACTIVE_LOW, IPT_UNKNOWN)
 
+	PORT_START("EDITSLIDER")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_OTHER)
+		PORT_NAME("Slider Min")
+
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_OTHER)
+		PORT_NAME("Slider Mid")
+
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_OTHER)
+		PORT_NAME("Slider Max")
+
 INPUT_PORTS_END
+
+void roland_jx3p_state::check_group_b()
+{
+    static bool last = false;
+
+    bool current =
+        !(ioport("SWSCN3")->read() & 0x02);
+
+    if (current && !last)
+        logerror("GROUP B PRESSED\n");
+
+    last = current;
+}
+
+void roland_jx3p_state::update_edit_slider()
+{
+	static u8 last = 0;
+
+	u8 const v = ioport("EDITSLIDER")->read();
+	u8 const changed = v & ~last;
+
+	if (changed & 0x01)
+	{
+		m_edit_slider = 0;
+		logerror("EDIT SLIDER LOW\n");
+	}
+
+	if (changed & 0x02)
+	{
+		m_edit_slider = 127;
+		logerror("EDIT SLIDER MID\n");
+	}
+
+	if (changed & 0x04)
+	{
+		m_edit_slider = 254;
+		logerror("EDIT SLIDER HIGH\n");
+	}
+
+	last = v;
+}
 
 void roland_jx3p_state::led_display_w(offs_t offset, u8 data)
 {
@@ -326,9 +429,16 @@ void roland_jx3p_state::led_display_w(offs_t offset, u8 data)
 
 void roland_jx3p_state::machine_start()
 {
-	m_led_matrix.fill(0x00);
-	save_item(NAME(m_led_matrix));
-
+	m_led_matrix.fill(0x00); 
+	m_midi_rxd = 1; 
+	m_edit_slider = 127; 
+	m_current_dac_value = 0; 
+	m_last_mux = 0; 
+	save_item(NAME(m_led_matrix)); 
+	save_item(NAME(m_midi_rxd)); 
+	save_item(NAME(m_edit_slider)); 
+	save_item(NAME(m_current_dac_value)); 
+	save_item(NAME(m_last_mux));
 	for (unsigned column = 0; column < 8; column++)
 		m_ledline[column] = 0;
 
@@ -346,7 +456,8 @@ void roland_jx3p_state::jx3p_16k(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &roland_jx3p_state::prog_map);
 	m_maincpu->set_addrmap(AS_DATA, &roland_jx3p_state::jx3p_ext_map);
 	m_maincpu->port_out_cb<1>().set(FUNC(roland_jx3p_state::analog_select_w));
-    m_maincpu->port_in_cb<3>().set([]() { return 0xff; });
+    //m_maincpu->port_in_cb<3>().set([]() { return 0xff; });
+	m_maincpu->port_in_cb<3>().set(FUNC(roland_jx3p_state::port3_r));
     m_maincpu->port_out_cb<2>().set(FUNC(roland_jx3p_state::port2_w));
     m_maincpu->port_out_cb<3>().set(FUNC(roland_jx3p_state::port3_w));
     
