@@ -116,6 +116,7 @@ void roland_jx3p_state::dac_w(offs_t offset, u8 data)
 		m_current_dac_value = data; 
 		if (m_last_mux == 0x61) 
 		{
+			//machine().debug_break();
 			m_vco_cv = m_current_dac_value;
 			for (int i = 0; i < 16; i++)
 			{
