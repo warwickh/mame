@@ -44,6 +44,7 @@ roland_jx3p_state(const machine_config &mconfig, device_type type, const char *t
 
 private:
 	u8 m_midi_rxd = 1;
+	u8 m_pg200_rxd = 1;
     u8 m_edit_slider = 127;
 
 	void midi_rx_w(int state);
@@ -65,6 +66,7 @@ private:
 	u8 port3_r();
 	void port2_w(u8 data);
 	void port3_w(u8 data);
+	void pg200_rx_w(device_t *device, int state);
     u8 m_mux_channel = 0;
 	u8 m_port3_in = 0xff;
     u8 m_last_mux = 0;
@@ -90,7 +92,7 @@ private:
 
 };
 
-void roland_jx3p_state::midi_rx_w(int state)
+[[maybe_unused]] void roland_jx3p_state::midi_rx_w(int state)
 {
 	m_midi_rxd = state ? 1 : 0;
 
@@ -140,7 +142,10 @@ void roland_jx3p_state::sw_interface_w(u8 data)
 u8 roland_jx3p_state::port3_r() 
 { 
 	u8 value = 0xff; 
-	if (!m_midi_rxd) value &= ~0x01; 
+
+	bool const rxd = m_midi_rxd && m_pg200_rxd;
+
+	if (!rxd) value &= ~0x01; 
 	if (m_last_mux == 0x61) 
 	{ 
 		bool const comparator = m_edit_slider >= m_current_dac_value; 
@@ -148,6 +153,12 @@ u8 roland_jx3p_state::port3_r()
 	} 
 	return value; 
 }
+
+[[maybe_unused]] void roland_jx3p_state::pg200_rx_w(device_t *device, int state)
+{
+	m_pg200_rxd = state ? 1 : 0;
+	logerror("PG200 RX=%u PC=%04X\n",m_pg200_rxd, unsigned(m_maincpu->pc()));
+}	
 
 void roland_jx3p_state::analog_select_w(u8 data)
 {
