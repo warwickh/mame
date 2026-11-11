@@ -47,8 +47,6 @@ private:
 	u8 m_pg200_rxd = 1;
     u8 m_edit_slider = 127;
 
-	void midi_rx_w(int state);
-
 	void prescale_w(u8 data);
 	void dac_w(offs_t offset, u8 data);
 	void sw_interface_w(u8 data);
@@ -66,7 +64,8 @@ private:
 	u8 port3_r();
 	void port2_w(u8 data);
 	void port3_w(u8 data);
-	void pg200_rx_w(device_t *device, int state);
+	void midi_rx_w(int state);
+	void pg200_rx_w(int state);
     u8 m_mux_channel = 0;
 	u8 m_port3_in = 0xff;
     u8 m_last_mux = 0;
@@ -153,12 +152,6 @@ u8 roland_jx3p_state::port3_r()
 	} 
 	return value; 
 }
-
-[[maybe_unused]] void roland_jx3p_state::pg200_rx_w(device_t *device, int state)
-{
-	m_pg200_rxd = state ? 1 : 0;
-	logerror("PG200 RX=%u PC=%04X\n",m_pg200_rxd, unsigned(m_maincpu->pc()));
-}	
 
 void roland_jx3p_state::analog_select_w(u8 data)
 {
@@ -461,6 +454,13 @@ void roland_jx3p_state::machine_start()
 		m_led[led] = 0;
 }
 
+[[maybe_unused]] void roland_jx3p_state::pg200_rx_w(int state)
+{
+    m_pg200_rxd = state ? 1 : 0;
+
+    logerror("PG200 RXD=%u\n", state);
+}
+
 void roland_jx3p_state::jx3p_16k(machine_config &config)
 {
 	I8031(config, m_maincpu, 12_MHz_XTAL);
@@ -481,9 +481,8 @@ void roland_jx3p_state::jx3p_16k(machine_config &config)
 	PIT8253(config, "counter4");
 
 	PG200(config, "programmer");
-    midi_port_device &mdin(MIDI_PORT(config, "mdin", midiin_slot, "midiin"));
-    mdin.rxd_handler().set(FUNC(roland_jx3p_state::midi_rx_w));
-    //config.set_default_layout(layout_jx3p_16k);
+
+
 }
 
 

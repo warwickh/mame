@@ -21,9 +21,19 @@ pg200_device::pg200_device(const machine_config &mconfig, const char *tag, devic
 {
 }
 
+void pg200_device::set_tx_function(std::function<void(int)> func)
+{
+    m_tx_func = std::move(func);
+}
+
 void pg200_device::p2_w(u8 data)
 {
-    int const new_tx_state = BIT(data, 7);
+    int tx = BIT(data, 7);
+
+    if (m_tx_func){
+        m_tx_func(tx);
+    };
+	int const new_tx_state = BIT(data, 7);
 
     if (new_tx_state != m_tx_state)
     {

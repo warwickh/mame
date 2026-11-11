@@ -12,6 +12,8 @@ class pg200_device : public device_t
 public:
 	pg200_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 	auto tx_callback() { return m_tx_cb.bind(); }
+	std::function<void(int)> m_tx_func;
+	void set_tx_function(std::function<void(int)> func);
 
 protected:
 	virtual void device_start() override ATTR_COLD;
